@@ -1,4 +1,4 @@
-function [BS, BC, AC1, AC2, AC3, AC4] = getFFT(wave,TrialStart,B,A)
+function [BS, BC, AC] = getFFT(wave,TrialStart,B,A)
 windowLength = 4000;
 fftLength = 512;
 fs= 24414;
@@ -8,10 +8,7 @@ sampleNumber = windowLength * fs /1000;%1s=1000ms
 trialNumber = length(TrialStart);
 BS = zeros(fftLength*2,trialNumber);
 BC = zeros(fftLength*2,trialNumber);
-AC1 = zeros(fftLength*2,trialNumber);
-AC2 = zeros(fftLength*2,trialNumber);
-AC3 = zeros(fftLength*2,trialNumber);
-AC4 = zeros(fftLength*2,trialNumber);
+AC = zeros(fftLength*2,trialNumber);
 for i = 1:trialNumber
     oneTrial = wave(TrialStart(i) : TrialStart(i)+sampleNumber-1);
     if (isfloat(oneTrial))
@@ -46,7 +43,7 @@ for i = 1:trialNumber
     FsingleTrial = fft([signal, zeros(1,1536)]);
     fAC4= abs(FsingleTrial(1:fftLength*2));
     
-    if sum(fBS)>0.01 && sum(fBC)>0.01 && sum(fAC1)>0.01 && sum(fAC2)>0.01 && sum(fAC3)>0.01 && sum(fAC4)>0.01
+    if sum(fBS)>0.01 && sum(fBC)>0.01 && sum(fAC)>0.01
         BS(:,i) = fBS';
         BC(:,i) = fBC';
         AC1(:,i) = fAC1';
@@ -56,10 +53,7 @@ for i = 1:trialNumber
     else
         BS(:,i:end) = [];
         BC(:,i:end) = [];
-        AC1(:,i:end) = [];
-        AC2(:,i:end) = [];
-        AC3(:,i:end) = [];
-        AC4(:,i:end) = [];
+        AC(:,i:end) = [];
         break;
     end
 end%trial

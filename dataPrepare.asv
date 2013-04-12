@@ -14,40 +14,40 @@ for j = 1 : length(rats)
 
 
     %cd(idir1);
-    eList = dir(idir1);
+    eList = dir(odir);
     for i = 3 : length(eList)
         eName = eList(i).name
-        if exist([idir2 eName], 'file') == 2
-            saveFile = 1;
-            load([idir1 eName]);
+     %   if exist([idir2 eName], 'file') == 2
+    %        saveFile = 1;
+    load([odir eName]);
+            load([idir1 'Wave' eName(4:end)]);
             trialNumberRC = length(TrialStartCorrectCorrection);
             trialNumberRR = length(TrialStartCorrectReinforcement);
             trialNumberWC = length(TrialStartIncorrectCorrection);
             trialNumberWR = length(TrialStartIncorrectReinforcement);
-            if trialNumberRC>5 && trialNumberRR>5 && trialNumberWC>5 && trialNumberWR>5
+       %     if trialNumberRC>5 && trialNumberRR>5 && trialNumberWC>5 && trialNumberWR>5
                 [BS_RC, BC_RC, AC1_RC, AC2_RC, AC3_RC, AC4_RC] = getFFT(waveCorrectCorrection,TrialStartCorrectCorrection,B,A);
                 [BS_RR, BC_RR, AC1_RR, AC2_RR, AC3_RR, AC4_RR] = getFFT(waveCorrectReinforcement,TrialStartCorrectReinforcement,B,A);
                 [BS_WC, BC_WC, AC1_WC, AC2_WC, AC3_WC, AC4_WC] = getFFT(waveIncorrectCorrection,TrialStartIncorrectCorrection,B,A);
                 [BS_WR, BC_WR, AC1_WR, AC2_WR, AC3_WR, AC4_WR] = getFFT(waveIncorrectReinforcement,TrialStartIncorrectReinforcement,B,A);
-            else
-                saveFile = 0;
-            end%if
-            load([idir2 eName]);
-            trialNumberRC = length(TrialStartCorrectCorrection);
-            trialNumberRR = length(TrialStartCorrectReinforcement);
-            trialNumberWC = length(TrialStartIncorrectCorrection);
-            trialNumberWR = length(TrialStartIncorrectReinforcement);
-            if trialNumberRC>5 && trialNumberRR>5 && trialNumberWC>5 && trialNumberWR>5
-                [BE_RC, AE_RC] = getFFTBE(waveCorrectCorrection,TrialStartCorrectCorrection,B,A);
-                [BE_RR, AE_RR] = getFFTBE(waveCorrectReinforcement,TrialStartCorrectReinforcement,B,A);
-                [BE_WC, AE_WC] = getFFTBE(waveIncorrectCorrection,TrialStartIncorrectCorrection,B,A);
-                [BE_WR, AE_WR] = getFFTBE(waveIncorrectReinforcement,TrialStartIncorrectReinforcement,B,A);
-            else
-                saveFile = 0;
-            end%if
-            if saveFile
+%             else
+%                 saveFile = 0;
+%             end%if
+%             load([idir2 eName]);
+%             trialNumberRC = length(TrialStartCorrectCorrection);
+%             trialNumberRR = length(TrialStartCorrectReinforcement);
+%             trialNumberWC = length(TrialStartIncorrectCorrection);
+%             trialNumberWR = length(TrialStartIncorrectReinforcement);
+%             if trialNumberRC>5 && trialNumberRR>5 && trialNumberWC>5 && trialNumberWR>5
+%                 [BE_RC, AE_RC] = getFFTBE(waveCorrectCorrection,TrialStartCorrectCorrection,B,A);
+%                 [BE_RR, AE_RR] = getFFTBE(waveCorrectReinforcement,TrialStartCorrectReinforcement,B,A);
+%                 [BE_WC, AE_WC] = getFFTBE(waveIncorrectCorrection,TrialStartIncorrectCorrection,B,A);
+%                 [BE_WR, AE_WR] = getFFTBE(waveIncorrectReinforcement,TrialStartIncorrectReinforcement,B,A);
+%             else
+%                 saveFile = 0;
+%             end%if
+ %           if saveFile
                 if(mean(mean(AC1_RC))/mean(mean(BS_RC)))>2
-                    i
                 figure
                 hold on;
                 plot(mean(BS_RC,2),'r');
@@ -60,8 +60,8 @@ for j = 1 : length(rats)
                             'BS_WC', 'BC_WC', 'AC1_WC','AC2_WC','AC3_WC','AC4_WC', 'BS_WR', 'BC_WR', 'AC1_WR','AC2_WR','AC3_WR','AC4_WR',...
                             'BE_RC', 'AE_RC', 'BE_RR', 'AE_RR', 'BE_WC', 'AE_WC' ,'BE_WR', 'AE_WR');
                    clear -regexp _RC$ _RR$ _WC$ _WR$;
-            end
-        end%if name exist
+%             end
+%         end%if name exist
     end%eList
 end%rats
     

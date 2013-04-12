@@ -61,17 +61,18 @@ main_handle = figure; hold on;
 
         iBEr = mean(BEr,2);
         iAEr = mean(AEr,2);
-       plot(XX1, iBSr(XX1),'k');
-       plot(XX1, iBTr(XX1),'c');
-       plot(XX1, iACr(XX1),'g');
+       plot(XX1/2, iBSr(XX1),'k');
+       plot(XX1/2, iBTr(XX1),'c');
+       plot(XX1/2, iACr(XX1),'g');
 %        plot(XX1, iAC2r(XX1),'y');
 %        plot(XX1, iAC3r(XX1),'k');
 %        plot(XX1, iAC4r(XX1),'b');
-       plot(XX1, iBEr(XX1),'r');
-       plot(XX1, iAEr(XX1),'b');
+       plot(XX1/2, iBEr(XX1),'r');
+       plot(XX1/2, iAEr(XX1),'b');
         legend('BS','BC','AC','BE','AE');
         xlabel('Frequency (Hz)');
         ylabel('Power');
+        saveas(main_handle,[odir 'freqresponse.png']);
 %         
 % inset_handle = figure;
 % hold on;
