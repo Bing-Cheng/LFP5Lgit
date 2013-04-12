@@ -1,8 +1,8 @@
 function [BE, AE] = getFFTBE(wave,TrialStart,B,A)
 windowLength = 1000;
-fftLength = 500;
+fftLength = 512;
 fs= 24414;
-rfs = 1000;
+rfs = 1024;
 sampleNumber = windowLength * fs /1000;
 
 trialNumber = length(TrialStart);
@@ -19,11 +19,11 @@ for i = 1:trialNumber
     y1 = resample(y,rfs,fs);% resample to 1000Hz sampling rate (0.1ms each sample)
     
     signal = y1(1:fftLength);
-    FsingleTrial = fft([signal, fliplr(signal),signal, fliplr(signal)]);
+    FsingleTrial = fft([signal,  zeros(1,1536)]);
     fBE= abs(FsingleTrial(1:fftLength*2));
     
     signal = y1(1+500:500+fftLength);
-    FsingleTrial = fft([signal, fliplr(signal),signal, fliplr(signal)]);
+    FsingleTrial = fft([signal,  zeros(1,1536)]);
     fAE= abs(FsingleTrial(1:fftLength*2));
     
    if sum(fBE)>0.01 && sum(fAE)>0.01

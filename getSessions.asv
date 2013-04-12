@@ -4,8 +4,8 @@ datePos = [5:16];
 rats = {'A09', 'O10', 'Q10', 'T10', 'G11', 'K11', 'O12', 'R12', 'S12', 'T12'};
 k=1;
 sessions ={};
-for r = 1 : length(rats)
-    ratname = rats{r};
+for j = 1 : length(rats)
+    ratname = rats{j};
     idir =  ['G:\frequencyDataLFP\' ratname '\'];
 	eList = dir(idir);
     for i = 3: 16 : length(eList)
@@ -13,8 +13,7 @@ for r = 1 : length(rats)
 		sessions{k} = eName(datePos);
 		
 		for j = i+1 : i+15
-            eName1 = eList(j).name;
-            tmp = eName1(datePos);
+            tmp = eName(datePos);
             if sessions{k} ~= tmp 
                 tmp
             end

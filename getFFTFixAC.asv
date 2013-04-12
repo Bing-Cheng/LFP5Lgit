@@ -1,4 +1,4 @@
-function [BS, BC, AC] = getFFT(wave,TrialStart,B,A)
+function [AC1, AC2, AC3, AC4] = getFFTFixAC(wave,TrialStart,B,A)
 windowLength = 4000;
 fftLength = 512;
 fs= 24414;
